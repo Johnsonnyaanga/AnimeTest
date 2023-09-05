@@ -14,10 +14,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.johnson.myapplication.R
 import com.johnson.myapplication.data.Data
+import com.johnson.myapplication.data.image.Result
 
 
-class AnimeAdapter(private val itemList: List<Data>) :
-    RecyclerView.Adapter<AnimeAdapter.ViewHolder>() {
+class SearchAdapter(private val itemList: List<Result>) :
+    RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
     // ViewHolder to cache the views in the item layout
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -34,18 +35,18 @@ class AnimeAdapter(private val itemList: List<Data>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = itemList[position]
-        holder.title.text = item.title
-
+        holder.title.text = item.filename
 
         val circularProgressDrawable = CircularProgressDrawable(holder.itemView.context)
         circularProgressDrawable.strokeWidth = 5f
         circularProgressDrawable.centerRadius = 30f
         circularProgressDrawable.start()
+
         val options: RequestOptions = RequestOptions()
             .centerCrop()
             .placeholder(circularProgressDrawable)
             .error(R.mipmap.ic_launcher_round)
-        Glide.with(holder.itemView.context).load(item.images.jpg.image_url).apply(options).into(holder.poster);
+        Glide.with(holder.itemView.context).load(item.image).apply(options).into(holder.poster);
 
 
 
